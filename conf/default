@@ -1,0 +1,11 @@
+description "statsd"
+author "etsy"
+
+start on startup
+stop on shutdown
+
+script
+    chdir /srv/statsd
+
+    exec sudo -u statsd /srv/statsd/scripts/start
+end script
