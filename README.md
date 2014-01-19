@@ -6,7 +6,9 @@
     statsd:
       server:
         enabled: true
-        bind_port: 8125
+        bind:
+          port: 8125
+          address: 0.0.0.0
         backends:
         - type: graphite
           host: metrics1.domain.com
