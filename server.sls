@@ -20,8 +20,9 @@ statsd_user:
 
 https://github.com/etsy/statsd.git:
   git.latest:
-  - target: /srv/statsd
+  - target: /srv/statsd/statsd
 
+{#
 /etc/init.d/statsd:
   file:
   - managed
@@ -30,11 +31,12 @@ https://github.com/etsy/statsd.git:
   - group: root
   - mode: 744
   - template: jinja
+#}
 
 statsd:
   service.running:
-  - require:
-    - file: /etc/init.d/statsd
+#  - require:
+#    - file: /etc/init.d/statsd
   - watch:
     - file: /etc/statsd/localConfig.js
 
