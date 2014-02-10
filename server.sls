@@ -16,13 +16,13 @@ statsd_user:
   - system: True
   - home: /srv/statsd
   - require:
-    git: https://github.com/etsy/statsd.git
+    - git: https://github.com/etsy/statsd.git
 
 https://github.com/etsy/statsd.git:
   git.latest:
   - target: /srv/statsd/statsd
 
-{#
+
 /etc/init.d/statsd:
   file:
   - managed
@@ -31,15 +31,15 @@ https://github.com/etsy/statsd.git:
   - group: root
   - mode: 744
   - template: jinja
-#}
-
+{#
 statsd:
   service.running:
-#  - require:
-#    - file: /etc/init.d/statsd
+  - enable: true
+  - require:
+    - file: /etc/init.d/statsd
   - watch:
     - file: /etc/statsd/localConfig.js
-
+#}
 /etc/statsd/localConfig.js:
   file:
   - managed
@@ -48,38 +48,6 @@ statsd:
   - group: root
   - mode: 644
   - template: jinja
-
-{#
-/etc/default/statsd:
-  file:
-  - managed
-  - source: salt://statsd/conf/default
-  - user: root
-  - group: root
-  - mode: 644
-  - template: jinja
-
-/srv/statsd/scripts:
-  file:
-  - directory
-  - user: statsd
-  - group: statsd
-  - mode: 770
-  - require:
-    - user: statsd
-    - git: https:://github.com/etsy/statsd.git
-
-/srv/statsd/scripts/start:
-  file:
-  - managed
-  - source: salt://statsd/conf/start
-  - user: root
-  - group: root
-  - mode: 744
-  - template: jinja
-  - require:
-    - file: /srv/statsd/scripts
-#}
 
 /var/log/statsd:
   file:
@@ -90,12 +58,7 @@ statsd:
   - require:
     - user: statsd
 
-update-rc.d statsd defaults:
-  cmd.run:
-  - require:
-    - service: statsd
-
-{%- for backend in pillar.statsd.backends %}
+{%- for backend in pillar.statsd.server.backends %}
 
 {%- if backend.type == 'amqp' %}
 #statsd_amqp_package:

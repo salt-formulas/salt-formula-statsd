@@ -1,8 +1,9 @@
 {
-	{%- for backend in pillar.statsd.backends %}
+	{%- for backend in pillar.statsd.server.backends %}
 	{%- if backend.type == 'graphite' %}
 	graphitePort: {{ backend.port }},
 	graphiteHost: "{{ backend.host }}",
+	backends: [ "./backends/graphite" ],
 	{%- endif %}
 	{%- if backend.type == 'amqp' %}
 	amqpHost: '{{ backend.host }}',
@@ -14,5 +15,5 @@
 	amqpDefaultExchange: '{{ backend.exchange }}',
 	{%- endif %}
 	{%- endfor %}
-	port: {{ pillar.statsd.bind_port }}
+	port: {{ pillar.statsd.server.bind.port }}
 }
