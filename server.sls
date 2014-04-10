@@ -4,12 +4,6 @@ include:
 - nodejs
 - git
 
-statsd_packages:
-  pkg:
-  - installed
-  - names:
-    - nodejs
-
 statsd_user:
   user.present:
   - name: statsd
@@ -17,21 +11,24 @@ statsd_user:
   - home: /srv/statsd
   - require:
     - git: https://github.com/etsy/statsd.git
+    - pkg: nodejs_packages
 
 https://github.com/etsy/statsd.git:
   git.latest:
   - target: /srv/statsd/statsd
+  - require:
+    - pkg: git_packages
 
+{% if grains.os_family == "Debian" %}
 
 /etc/init.d/statsd:
-  file:
-  - managed
+  file.managed:
   - source: salt://statsd/conf/init
   - user: root
   - group: root
   - mode: 744
   - template: jinja
-{#
+
 statsd:
   service.running:
   - enable: true
@@ -39,10 +36,11 @@ statsd:
     - file: /etc/init.d/statsd
   - watch:
     - file: /etc/statsd/localConfig.js
-#}
+
+{% endif %}
+
 /etc/statsd/localConfig.js:
-  file:
-  - managed
+  file.managed:
   - source: salt://statsd/conf/localConfig.js
   - user: root
   - group: root
@@ -50,8 +48,7 @@ statsd:
   - template: jinja
 
 /var/log/statsd:
-  file:
-  - directory
+  file.directory:
   - user: statsd
   - group: statsd
   - mode: 777
@@ -61,6 +58,7 @@ statsd:
 {%- for backend in pillar.statsd.server.backends %}
 
 {%- if backend.type == 'amqp' %}
+
 #statsd_amqp_package:
 #  npm.installed:
 #  - name: statsd-amqp-backend
