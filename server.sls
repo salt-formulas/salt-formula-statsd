@@ -36,6 +36,7 @@ statsd:
     - file: /etc/init.d/statsd
   - watch:
     - file: /etc/statsd/localConfig.js
+    - cmd: install_statsd_deps
 
 {% endif %}
 
@@ -46,7 +47,7 @@ install_statsd_deps:
   - unless: test -e /srv/statsd/statsd/node_modules
   - require:
     - git: https://github.com/etsy/statsd.git
-    
+
 /etc/statsd/localConfig.js:
   file.managed:
   - source: salt://statsd/conf/localConfig.js
