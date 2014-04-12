@@ -6,7 +6,7 @@
         'config_prefix': '/etc/statsd/',
         'service_location': '/etc/init.d/statsd',
         'source': 'https://github.com/etsy/statsd.git',
-        'config': "".join((server.config_prefix,'localConfig.js'),),
+        'config': "".join(('/etc/statsd/','localConfig.js'),),
     },
     'Debian': {
         'pkgs': ['statsd'],
@@ -14,16 +14,15 @@
         'config_prefix': '/etc/statsd/',
         'service_location': '/etc/init.d/statsd',
         'source': 'https://github.com/etsy/statsd.git',
-        'config': "".join((server.config_prefix,'localConfig.js'),),
+        'config': "".join(('/etc/statsd/','localConfig.js'),),
     },
     'RedHat': {
         'pkgs': ['statsd'],
         'service': 'statsd',
         'config_prefix': '/etc/statsd/conf.d/',
-        'config_suffix': '.conf',
         'service_location': '/etc/init.d/statsd',
         'source': 'https://github.com/etsy/statsd.git',
-        'config': "".join((server.config_prefix,'localConfig.js'),),
+        'config': "".join(('/etc/statsd/','localConfig.js'),),
     }
 }, merge=salt['pillar.get']('statsd:server')) %}
 
