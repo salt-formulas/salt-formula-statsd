@@ -1,4 +1,6 @@
-{%- if pillar.statsd.server.enabled %}
+{% from "statsd/map.jinja" import server with context %}
+
+{%- if server.enabled %}
 
 include:
 - nodejs
@@ -10,18 +12,16 @@ statsd_user:
   - system: True
   - home: /srv/statsd
   - require:
-    - git: https://github.com/etsy/statsd.git
+    - git: {{ server.source }}
     - pkg: nodejs_packages
 
-https://github.com/etsy/statsd.git:
+{{ server.source }}:
   git.latest:
   - target: /srv/statsd/statsd
   - require:
     - pkg: git_packages
 
-{% if grains.os_family == "Debian" %}
-
-/etc/init.d/statsd:
+{{ server.service_location }}:
   file.managed:
   - source: salt://statsd/conf/init
   - user: root
@@ -29,16 +29,16 @@ https://github.com/etsy/statsd.git:
   - mode: 744
   - template: jinja
 
-statsd:
+{% set conf = "".join((server.config_prefix,'localConfig.js'),) %}
+
+{{ server.service }}:
   service.running:
   - enable: true
   - require:
-    - file: /etc/init.d/statsd
+    - file: {{ server.service_location }}
   - watch:
-    - file: /etc/statsd/localConfig.js
+    - file: {{ server.config }}
     - cmd: install_statsd_deps
-
-{% endif %}
 
 install_statsd_deps:
   cmd.run:
@@ -46,9 +46,10 @@ install_statsd_deps:
   - cwd: /srv/statsd/statsd/
   - unless: test -e /srv/statsd/statsd/node_modules
   - require:
-    - git: https://github.com/etsy/statsd.git
+    - git: {{ server.source }}
 
-/etc/statsd/localConfig.js:
+
+{{ server.config }}:
   file.managed:
   - source: salt://statsd/conf/localConfig.js
   - user: root

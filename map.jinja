@@ -1,0 +1,29 @@
+
+{% set server = salt['grains.filter_by']({
+    'Arch': {
+        'pkgs': ['statsd'],
+        'service': 'statsd',
+        'config_prefix': '/etc/statsd/',
+        'service_location': '/etc/init.d/statsd',
+        'source': 'https://github.com/etsy/statsd.git',
+        'config': "".join((server.config_prefix,'localConfig.js'),),
+    },
+    'Debian': {
+        'pkgs': ['statsd'],
+        'service': 'statsd',
+        'config_prefix': '/etc/statsd/',
+        'service_location': '/etc/init.d/statsd',
+        'source': 'https://github.com/etsy/statsd.git',
+        'config': "".join((server.config_prefix,'localConfig.js'),),
+    },
+    'RedHat': {
+        'pkgs': ['statsd'],
+        'service': 'statsd',
+        'config_prefix': '/etc/statsd/conf.d/',
+        'config_suffix': '.conf',
+        'service_location': '/etc/init.d/statsd',
+        'source': 'https://github.com/etsy/statsd.git',
+        'config': "".join((server.config_prefix,'localConfig.js'),),
+    }
+}, merge=salt['pillar.get']('statsd:server')) %}
+
