@@ -32,7 +32,6 @@ statsd_user:
   - mode: 744
   - template: jinja
 
-
 {{ server.service }}:
   service.running:
   - enable: true
