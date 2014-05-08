@@ -21,6 +21,9 @@ statsd_user:
   - require:
     - pkg: git_packages
 
+{% set conf = "".join((server.config_prefix,'localConfig.js'),) %}
+
+{#
 {{ server.service_location }}:
   file.managed:
   - source: salt://statsd/conf/init
@@ -29,7 +32,6 @@ statsd_user:
   - mode: 744
   - template: jinja
 
-{% set conf = "".join((server.config_prefix,'localConfig.js'),) %}
 
 {{ server.service }}:
   service.running:
@@ -39,6 +41,7 @@ statsd_user:
   - watch:
     - file: {{ server.config }}
     - cmd: install_statsd_deps
+#}
 
 install_statsd_deps:
   cmd.run:
@@ -47,7 +50,6 @@ install_statsd_deps:
   - unless: test -e /srv/statsd/statsd/node_modules
   - require:
     - git: {{ server.source }}
-
 
 {{ server.config }}:
   file.managed:
