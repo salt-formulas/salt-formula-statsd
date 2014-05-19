@@ -42,6 +42,9 @@ statsd_user:
     - cmd: install_statsd_deps
 #}
 
+/etc/statsd:
+  file.directory
+
 install_statsd_deps:
   cmd.run:
   - name: npm install
