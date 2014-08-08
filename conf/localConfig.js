@@ -2,23 +2,23 @@
 
 {
 	{%- if server.backend.engine == 'carbon' %}
-	graphiteHost: "{{ backend.host }}",
-	graphitePort: {{ backend.port }},
+	graphiteHost: "{{ server.backend.host }}",
+	graphitePort: {{ server.backend.port }},
 	backends: [ "./backends/graphite" ],
 	{%- endif %}
 	{%- if server.backend.engine == 'amqp' %}
-	amqpHost: '{{ backend.host }}',
-	amqpPort: {{ backend.port }},
-	amqpLogin: '{{ backend.user }}',
-	amqpPassword: '{{ backend.password }}',
-	amqpVhost: '{{ backend.virtual_host }}',
-	amqpQueue: '{{ backend.queue }}',
-	amqpDefaultExchange: '{{ backend.exchange }}',
+	amqpHost: '{{ server.backend.host }}',
+	amqpPort: {{ server.backend.port }},
+	amqpLogin: '{{ server.backend.user }}',
+	amqpPassword: '{{ server.backend.password }}',
+	amqpVhost: '{{ server.backend.virtual_host }}',
+	amqpQueue: '{{ server.backend.queue }}',
+	amqpDefaultExchange: '{{ server.backend.exchange }}',
 	{%- endif %}
 	{%- if server.backend.engine == 'opentsdb' %}
-	opentsdbHost: "{{ backend.host }}",
-	opentsdbPort: {{ backend.port }},
-	opentsdbTagPrefix: "{{ backend.get('prefix', '_t_') }}",
+	opentsdbHost: "{{ server.backend.host }}",
+	opentsdbPort: {{ server.backend.port }},
+	opentsdbTagPrefix: "{{ server.backend.get('prefix', '_t_') }}",
 	{%- endif %}
-	port: {{ pillar.statsd.server.bind.port }}
+	port: {{ server.bind.port }}
 }
