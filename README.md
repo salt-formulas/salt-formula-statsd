@@ -1,6 +1,8 @@
 
 # Statsd
 
+Simple daemon for easy stats aggregation.
+
 ## Sample pillars
 
 Standalone Statsd server with Graphite/carbon backend
