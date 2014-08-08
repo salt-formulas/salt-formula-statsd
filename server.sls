@@ -1,5 +1,4 @@
-{% from "statsd/map.jinja" import server with context %}
-
+{%- from "statsd/map.jinja" import server with context %}
 {%- if server.enabled %}
 
 include:
@@ -69,9 +68,7 @@ install_statsd_deps:
   - require:
     - user: statsd
 
-{%- for backend in pillar.statsd.server.backends %}
-
-{%- if backend.type == 'amqp' %}
+{%- if server.backend.engine == 'amqp' %}
 
 #statsd_amqp_package:
 #  npm.installed:
@@ -83,6 +80,12 @@ install_package:
 
 {%- endif %}
 
-{%- endfor %}
+{%- if server.backend.engine == 'opentsdb' %}
+
+install_package:
+  cmd.run:
+  - name: npm install statsd-opentsdb-backend
+
+{%- endif %}
 
 {%- endif %}
