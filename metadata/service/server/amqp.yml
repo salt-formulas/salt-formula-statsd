@@ -1,0 +1,15 @@
+applications:
+- statsd
+parameters:
+  supervisor:
+    server:
+      service:
+        statsd_server:
+          name: server
+          type: statsd
+  statsd:
+    server:
+      enabled: true
+      bind:
+        port: 8125
+        address: 127.0.0.1
