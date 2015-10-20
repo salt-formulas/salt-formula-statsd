@@ -1,0 +1,2 @@
+statsd/*             /usr/share/salt-formulas/env/statsd/
+metadata/service/*      /usr/share/salt-formulas/reclass/service/statsd/

@@ -1,9 +1,12 @@
 
-# Statsd
+======
+Statsd
+======
 
 Simple daemon for easy stats aggregation.
 
-## Sample pillars
+Sample pillars
+==============
 
 Standalone Statsd server with Graphite/carbon backend
 
@@ -44,7 +47,8 @@ Standalone Statsd server with OpenTSDB backend
           host: metrics1.domain.com
           port: 2003
     
-## Read more
+Read more
+=========
 
 * https://github.com/etsy/statsd/
 * https://github.com/mrtazz/statsd-amqp-backend
