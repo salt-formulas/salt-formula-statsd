@@ -1,27 +1,19 @@
 
 {% set server = salt['grains.filter_by']({
-    'Arch': {
-        'pkgs': ['statsd'],
-        'service': 'statsd',
-        'config_prefix': '/etc/statsd/',
-        'service_location': '/etc/init.d/statsd',
-        'source': 'https://github.com/etsy/statsd.git',
-        'config': "".join(('/etc/statsd/','localConfig.js'),),
-    },
     'Debian': {
         'pkgs': ['statsd'],
+        'pkgs_backend_amqp': ['statsd-backend-amqp'],
+        'pkgs_backend_opentsdb': ['statsd-backend-opentsdb'],
         'service': 'statsd',
         'config_prefix': '/etc/statsd/',
-        'service_location': '/etc/init.d/statsd',
-        'source': 'https://github.com/etsy/statsd.git',
         'config': "".join(('/etc/statsd/','localConfig.js'),),
     },
     'RedHat': {
         'pkgs': ['statsd'],
+        'pkgs_backend_amqp': ['statsd-backend-amqp'],
+        'pkgs_backend_opentsdb': ['statsd-backend-opentsdb'],
         'service': 'statsd',
         'config_prefix': '/etc/statsd/conf.d/',
-        'service_location': '/etc/init.d/statsd',
-        'source': 'https://github.com/etsy/statsd.git',
         'config': "".join(('/etc/statsd/','localConfig.js'),),
     }
 }, merge=salt['pillar.get']('statsd:server')) %}
