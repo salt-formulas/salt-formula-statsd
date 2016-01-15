@@ -1,0 +1,25 @@
+applications:
+- statsd
+parameters:
+  _params:
+    statsd_server_backend_host: localhost
+    statsd_server_backend_port: 5672
+    statsd_server_backend_user: metric
+    statsd_server_backend_virtual_host: 5672
+    statsd_server_backend_queue: metric
+    statsd_server_backend_exchange: metric
+  statsd:
+    server:
+      enabled: true
+      bind:
+        port: 8125
+        address: 127.0.0.1
+      backend:
+        engine: rabbitmq
+        host: ${_param:statsd_server_backend_host}
+        port: ${_param:statsd_server_backend_port}
+        user: ${_param:statsd_server_backend_user}
+        password: ${_param:statsd_server_backend_password}
+        virtual_host: ${_param:statsd_server_backend_virtual_host}
+        queue: ${_param:statsd_server_backend_queue}
+        exchange: ${_param:statsd_server_backend_exchange}

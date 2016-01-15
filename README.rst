@@ -10,6 +10,8 @@ Sample pillars
 
 Standalone Statsd server with Graphite/carbon backend
 
+.. code-block:: yaml
+
     statsd:
       server:
         enabled: true
@@ -23,6 +25,8 @@ Standalone Statsd server with Graphite/carbon backend
 
 Standalone Statsd server with Graphite/AMQP backend
 
+.. code-block:: yaml
+
     statsd:
       server:
         enabled: true
@@ -32,9 +36,12 @@ Standalone Statsd server with Graphite/AMQP backend
         backend:
           engine: amqp
           host: metrics1.domain.com
-          port: 2003
+          port: 5672
+          
 
 Standalone Statsd server with OpenTSDB backend
+
+.. code-block:: yaml
 
     statsd:
       server:

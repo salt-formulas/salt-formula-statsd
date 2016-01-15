@@ -6,7 +6,7 @@
 	graphitePort: {{ server.backend.port }},
 	backends: [ "./backends/graphite" ],
 	{%- endif %}
-	{%- if server.backend.engine == 'amqp' %}
+	{%- if server.backend.engine == 'rabbitmq' %}
 	amqpHost: '{{ server.backend.host }}',
 	amqpPort: {{ server.backend.port }},
 	amqpLogin: '{{ server.backend.user }}',

@@ -30,7 +30,7 @@ statsd_pkgs:
     - file: {{ server.config }}
     - pkg: statsd_pkgs
 
-{%- if server.backend.engine == 'amqp' %}
+{%- if server.backend.engine == 'rabbitmq' %}
 
 statsd_backend_pkgs:
   pkg.installed:
