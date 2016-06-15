@@ -1,0 +1,8 @@
+name: statsd
+os: Debian, RedHat
+os_family: Debian, RedHat
+version: 201606
+release: 1
+summary: statsd salt formula
+description: Configure statsd system.
+top_level_dir: statsd
