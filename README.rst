@@ -1,9 +1,10 @@
 
-======
-Statsd
-======
+==============
+Statsd formula
+==============
 
 Simple daemon for easy stats aggregation.
+
 
 Sample pillars
 ==============
@@ -53,13 +54,15 @@ Standalone Statsd server with OpenTSDB backend
           engine: amqp
           host: metrics1.domain.com
           port: 2003
-    
-Read more
-=========
+
+
+More information
+================
 
 * https://github.com/etsy/statsd/
 * https://github.com/mrtazz/statsd-amqp-backend
 * https://github.com/danslimmon/statsd-opentsdb-backend
+
 
 Documentation and Bugs
 ======================

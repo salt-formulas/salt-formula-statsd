@@ -1,7 +1,7 @@
 applications:
 - statsd
 parameters:
-  _params:
+  _param:
     statsd_server_backend_host: localhost
     statsd_server_backend_port: 2003
   statsd:
