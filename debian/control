@@ -10,6 +10,6 @@ Vcs-Git: https://github.com/tcpcloud/salt-formula-statsd.git
 
 Package: salt-formula-statsd
 Architecture: all
-Depends: ${misc:Depends}, salt-master, reclass
+Depends: ${misc:Depends}
 Description: statsd salt formula
  Configure statsd system.
