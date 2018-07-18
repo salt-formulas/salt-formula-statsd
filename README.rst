@@ -38,7 +38,6 @@ Standalone Statsd server with Graphite/AMQP backend
           engine: amqp
           host: metrics1.domain.com
           port: 5672
-          
 
 Standalone Statsd server with OpenTSDB backend
 
@@ -51,7 +50,7 @@ Standalone Statsd server with OpenTSDB backend
           port: 8125
           address: 0.0.0.0
         backend:
-          engine: amqp
+          engine: opentsdb
           host: metrics1.domain.com
           port: 2003
 

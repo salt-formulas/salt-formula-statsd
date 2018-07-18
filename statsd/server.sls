@@ -13,7 +13,7 @@ statsd_pkgs:
   - require:
     - pkg: statsd_pkgs
   - require_in:
-    - service: {{ server.service }} 
+    - service: {{ server.service }}
 
 {{ server.config }}:
   file.managed:
